@@ -8,6 +8,7 @@ public class WordMatch {
      * letters.
      */
     public WordMatch(String word) {
+        secret = word;
         /* implementation not shown */
     }
 
@@ -17,7 +18,11 @@ public class WordMatch {
      * Precondition: 0 < guess.length() <= secret.length()
      */
     public int scoreGuess(String guess) {
-        return 0;
+        int score = 0;
+        for (int i=0; i<=secret.length()-guess.length(); i++) {
+            if (secret.substring(i, i+guess.length()).equals(guess)) score++;
+        }
+        return score * guess.length() * guess.length();
     }
 
 
@@ -29,8 +34,10 @@ public class WordMatch {
      * guess1 is not the same as guess2.
      */
     public String findBetterGuess(String guess1, String guess2) {
-        return null;
+        if (scoreGuess(guess1) > scoreGuess(guess2)) return guess1;
+        if (scoreGuess(guess2) > scoreGuess(guess1)) return guess2;
+        if (guess1.compareTo(guess2) > 0) return guess1;
+        return guess2;
     }
 }
 
-}
